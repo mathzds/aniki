@@ -2,7 +2,7 @@ import type { FastifyInstance } from "fastify";
 
 import animeService from "./service";
 
-import ErrorHandler from "../../common/handlers/handlerError";
+import ErrorHandler from "@/common/handlers/handlerError";
 
 export default async function animeController(app: FastifyInstance) {
 	const videoService = new animeService();
@@ -26,7 +26,7 @@ export default async function animeController(app: FastifyInstance) {
 		}
 	});
 
-	app.get("/", async (request, reply) => {
+	app.get("/", async (_request, reply) => {
 		return reply.send("Ola mundo");
-	})
+	});
 }

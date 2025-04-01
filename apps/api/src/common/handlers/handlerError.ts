@@ -9,7 +9,7 @@ export default class ErrorHandler {
 		const { statusCode, body } = this.getErrorResponse(error);
 		return reply.status(statusCode).send(body);
 	}
-  
+
 	private static getErrorResponse(error: unknown): ErrorResponse {
 		if (error instanceof Error) {
 			switch (error.message) {
