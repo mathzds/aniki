@@ -27,4 +27,13 @@ export default class userServices {
 			throw new Error("USER_NOT_FOUND");
 		});
 	}
+
+	async login(data: {
+		login: string;
+		password: string;
+	}): Promise<userEntity | null> {
+		return await this.repository.login(data).catch(() => {
+			throw new Error("USER_NOT_FOUND");
+		});
+	}
 }

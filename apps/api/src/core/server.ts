@@ -1,8 +1,13 @@
 import fastify from "fastify";
 import fastifyStatic from "@fastify/static";
 import fastifyBasicAuth from "@fastify/basic-auth";
+import fastifyJwt from "@fastify/jwt";
+import fastifyCookie from "@fastify/cookie";
+import fastifyCors from "@fastify/cors";
 
 import path from "node:path";
+
+import { configureAuth } from "./middlewares/auth";
 
 import handlerRoute from "@/common/handlers/handlerRoute";
 import configClient from "@/common/config/configClient";
@@ -27,6 +32,25 @@ app.register(async (authenticatedApp) => {
 
 	authenticatedApp.register(userController);
 });
+
+app.register(fastifyJwt, {
+	secret: "chelseaERendaFixa2025",
+});
+
+app.register(fastifyCookie, {
+	secret: "chelseaERendaFixa2025",
+	hook: "onRequest",
+	parseOptions: {},
+});
+
+app.register(fastifyCors, {
+	origin: "http://localhost:3000",
+	credentials: true,
+	allowedHeaders: ["Content-Type", "Authorization"],
+	methods: ["GET", "POST", "PUT", "DELETE"],
+});
+
+configureAuth(app);
 
 export default async () => {
 	try {

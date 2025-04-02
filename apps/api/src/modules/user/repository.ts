@@ -25,4 +25,19 @@ export default class userRepository {
 	async delete(id: string): Promise<void> {
 		await this.repository.delete(id);
 	}
+
+	async login(data: {
+		login: string;
+		password: string;
+	}): Promise<userEntity | null> {
+		const user = await this.repository.findOneBy({ login: data.login });
+
+		if (!user || user.password !== data.password) {
+			throw new Error("INVALID_CREDENTIALS");
+		}
+
+		if (!user) throw new Error("INVALID_CREDENTIALS");
+
+		return user;
+	}
 }

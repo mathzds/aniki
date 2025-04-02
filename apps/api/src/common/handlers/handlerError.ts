@@ -18,6 +18,26 @@ export default class ErrorHandler {
 						statusCode: 409,
 						body: { message: "Episodio nao encontrado" },
 					};
+				case "USER_NOT_FOUND":
+					return {
+						statusCode: 409,
+						body: { message: "Usuario nao encontrado" },
+					};
+				case "USER_ALREADY_EXISTS":
+					return {
+						statusCode: 409,
+						body: { message: "Usuario ja cadastrado" },
+					};
+				case "TOKEN_NOT_FOUND":
+					return {
+						statusCode: 401,
+						body: { message: "Token nao encontrado" },
+					};
+				case "INVALID_CREDENTIALS":
+					return {
+						statusCode: 401,
+						body: { message: "Credenciais invalidas" },
+					};
 				default:
 					console.error("Erro interno:", error);
 					return {
