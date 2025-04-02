@@ -20,6 +20,7 @@ const AuthContext = createContext<AuthContextType>({
 	logout: () => {},
 	loading: true,
 });
+
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const [user, setUser] = useState<User | null>(null);
 	const [loading, setLoading] = useState(true);
@@ -48,10 +49,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		setUser(userData);
 	};
 
-	const logout = () => {
-		setUser(null);
-		document.cookie =
-			"access_token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+	const logout = async () => {
+		return await fetch("/api/auth/logout", {
+			method: "POST",
+			credentials: "include",
+		});
 	};
 
 	return (

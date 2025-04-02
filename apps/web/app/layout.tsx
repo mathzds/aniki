@@ -3,6 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 
 import { AuthProvider } from "../context/AuthContext";
+import Navbar from "../components/navbar";
 
 export const metadata: Metadata = {
 	title: "Aniki",
@@ -19,7 +20,10 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body>
-				<AuthProvider>{children}</AuthProvider>
+				<AuthProvider>
+					<Navbar />
+					{children}
+				</AuthProvider>
 			</body>
 		</html>
 	);

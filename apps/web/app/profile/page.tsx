@@ -9,7 +9,7 @@ export default function Profile() {
 	const { user } = useAuth();
 
 	if (!user) {
-		return <div>Loading...</div>;
+		throw new Error("USER_NOT_FOUND");
 	}
 
 	return (
