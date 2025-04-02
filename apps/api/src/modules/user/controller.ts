@@ -96,4 +96,19 @@ export default async function userController(app: FastifyInstance) {
 			}
 		},
 	);
+
+	app.post("/user/logout", async (_request, reply) => {
+		try {
+			return reply
+				.clearCookie("access_token", {
+					httpOnly: true,
+					secure: false,
+					sameSite: "strict",
+					path: "/",
+				})
+				.send({ message: "Logout successful" });
+		} catch (error) {
+			ErrorHandler.handle(error, reply);
+		}
+	});
 }
